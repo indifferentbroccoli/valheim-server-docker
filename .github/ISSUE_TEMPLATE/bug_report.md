@@ -69,6 +69,6 @@ Steps to reproduce the behavior:
 
 ## Bug Report Checklist
 
-- [ ] I searched for my issue in the [Closed issues](https://github.com/indifferentbroccoli/projectzomboid-server-docker/issues?q=is%3Aissue+is%3Aclosed)
+- [ ] I searched for my issue in the [Closed issues](https://github.com/indifferentbroccoli/valheim-server-docker/issues?q=is%3Aissue+is%3Aclosed)
 - [ ] I have included all relevant information required above.
 - [ ] I am willing to fix this bug
