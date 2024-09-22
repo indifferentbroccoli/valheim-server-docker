@@ -33,7 +33,11 @@ ENV HOME=/home/steam \
     MODIFIER_DEATH= \
     MODIFIER_RESOURCES= \
     MODIFIER_RAIDS= \
-    MODIFIER_PORTALS=
+    MODIFIER_PORTALS= \
+    NO_MAP=false \
+    PLAYER_EVENTS=false \
+    PASSIVE_MOBS=false \
+    NO_BUILD_COST=false 
 
 COPY ./scripts /home/steam/server/
 
