@@ -41,11 +41,8 @@ if [ -n "${MODIFIER_PORTALS}" ]; then
     MODIFIERS+=("-modifier portals ${MODIFIER_PORTALS}")
 fi
 
-
-
 LogAction "Starting server"
-set -x
-set -e
+
 ./valheim_server.x86_64 \
     -name "${SERVER_NAME}" \
     -port "${PORT}" \
