@@ -127,4 +127,3 @@ Installs the server. This script will download the server files using SteamCMD a
 #### funtions.sh
 
 Contains functions that are used in the other scripts.
-
