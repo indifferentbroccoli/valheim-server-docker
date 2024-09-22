@@ -1,0 +1,21 @@
+---
+services:
+  valheim:
+    image: test
+    restart: unless-stopped
+    container_name: valheim
+    stop_grace_period: 30s
+    ports:
+      - '2456:2456/udp'
+      - '2457:2457/udp'
+    environment:
+      PUID: 1000
+      PGID: 1000
+      MODIFIER_RAIDS: "less"
+      SERVER_PASSWORD: "Test&&Test"
+    env_file:
+      - .env.example
+    volumes:
+      - ./valheim/server-files:/valheim
+      - ./valheim/server-data:/valheim-saves
+
