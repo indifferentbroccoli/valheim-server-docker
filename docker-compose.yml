@@ -1,7 +1,7 @@
 ---
 services:
   valheim:
-    image: test
+    image: indifferentbroccoli/valheim-server-docker:latest
     restart: unless-stopped
     container_name: valheim
     stop_grace_period: 30s
@@ -11,8 +11,6 @@ services:
     environment:
       PUID: 1000
       PGID: 1000
-      MODIFIER_RAIDS: "less"
-      SERVER_PASSWORD: "Test&&Test"
     env_file:
       - .env.example
     volumes:
