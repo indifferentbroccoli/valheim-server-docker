@@ -40,9 +40,29 @@ fi
 if [ -n "${MODIFIER_PORTALS}" ]; then
     MODIFIERS+=("-modifier portals ${MODIFIER_PORTALS}")
 fi
+# If NO_MAPS is set to true, add -setkey nomap to the server start command
+if [ "${NO_MAP}" = "true" ]; then
+    MODIFIERS+=("-setkey nomap")
+fi
+# If PLAYER_EVENTS is set to true, add -setkey playerevents to the server start command
+if [ "${PLAYER_EVENTS}" = "true" ]; then
+    MODIFIERS+=("-setkey playerevents")
+fi
+# If PASSIVE_MOBS is set to true, add -setkey passivemob to the server start command
+if [ "${PASSIVE_MOBS}" = "true" ]; then
+    MODIFIERS+=("-setkey passivemobs")
+fi
+# If NO_BUILD_COST is set to true, add -setkey nobuildcost to the server start command
+if [ "${NO_BUILD_COST}" = "true" ]; then
+    MODIFIERS+=("-setkey nobuildcost")
+fi
 
 LogAction "Starting server"
 
+# remove double quotes from the modifiers array
+MODIFIERS=("${MODIFIERS[@]//\"}")
+
+# shellcheck disable=SC2068
 ./valheim_server.x86_64 \
     -name "${SERVER_NAME}" \
     -port "${PORT}" \
@@ -56,6 +76,6 @@ LogAction "Starting server"
     -backuplong "${BACKUPS_LONG}" \
     "${CROSSPLAY}" \
     -preset "${SERVER_PRESET}" \
-    "${MODIFIERS[*]}" \
+    ${MODIFIERS[@]} \
     -nographics \
     -batchmode
