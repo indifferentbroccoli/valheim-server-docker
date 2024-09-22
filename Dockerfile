@@ -33,8 +33,7 @@ ENV HOME=/home/steam \
     MODIFIER_DEATH= \
     MODIFIER_RESOURCES= \
     MODIFIER_RAIDS= \
-    MODIFIER_PORTALS= \
-    GENERATE_SETTINGS=true
+    MODIFIER_PORTALS=
 
 COPY ./scripts /home/steam/server/
 
