@@ -62,3 +62,11 @@ memory_check() {
     return 0
   fi
 }
+
+check_password() {
+  if [ "${SERVER_PASSWORD}" == "CHANGEME" ]; then
+    LogWarn "Server Password has not been changed, please set a password in the environment variables or .env file."
+    LogWarn "Continuing in 5 seconds..."
+    sleep 5
+  fi
+} 

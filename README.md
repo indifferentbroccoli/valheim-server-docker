@@ -96,6 +96,10 @@ docker run -d \
 | MODIFIER_RESOURCES | Sets chosen world modifier with value. If combined with a preset should be set after. Valid modifiers and values are: muchless, less, more, muchmore, most                                                                                  |               |
 | MODIFIER_RAIDS     | Sets chosen world modifier with value. If combined with a preset should be set after. Valid modifiers and values are: none, muchless, less, more, muchmore                                                                                  |               |
 | MODIFIER_PORTALS   | Sets chosen world modifier with value. If combined with a preset should be set after. Valid modifiers and values are: casual, hard, veryhard                                                                                                |               |
+| NO_MAP             | Disables the map.                                                                                                                                                                                                                           | false         |
+| PLAYER_EVENTS      | When set, raid events are player-based rather than world-base                                                                                                                                                                               | false         |
+| PASSIVE_MOBS       | Enables passive mobs.                                                                                                                                                                                                                       | false         |
+| NO_BUILD_COST      | Disables building cost.                                                                                                                                                                                                                     | false         |
 
 ## Developer information
 

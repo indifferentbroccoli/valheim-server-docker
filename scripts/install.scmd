@@ -10,6 +10,6 @@ force_install_dir /valheim
 login anonymous
 
 // Install/Update the Satisfactory Dedicated Server
-app_update 896660  validate
+app_update 896660 validate
 
 quit

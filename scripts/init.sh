@@ -22,6 +22,8 @@ if cpu_check && memory_check; then
     LogSuccess "Compatibility checks passed"
 fi
 
+check_password
+
 install
 
 # shellcheck disable=SC2317
