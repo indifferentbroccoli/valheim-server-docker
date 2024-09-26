@@ -100,6 +100,7 @@ docker run -d \
 | PLAYER_EVENTS      | When set, raid events are player-based rather than world-base                                                                                                                                                                               | false         |
 | PASSIVE_MOBS       | Enables passive mobs.                                                                                                                                                                                                                       | false         |
 | NO_BUILD_COST      | Disables building cost.                                                                                                                                                                                                                     | false         |
+| BEPINEX_ENABLED    | Enables BepInEx modding.                                                                                                                                                                                                                    | false         |
 
 ## Developer information
 
