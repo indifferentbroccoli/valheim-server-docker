@@ -4,8 +4,8 @@ FROM cm2network/steamcmd:root
 RUN apt-get update && apt-get install -y --no-install-recommends \
     libatomic1=12.2.0-14 \
     libpulse-dev=16.1+dfsg1-2+b1 \
-    unzip \
-    wget \
+    unzip=6.0-28 \
+    wget=1.21.3-1+b2 \
     libpulse0=16.1+dfsg1-2+b1 \
     libc6=2.36-9+deb12u8 \
     gettext-base=0.21-12 \
