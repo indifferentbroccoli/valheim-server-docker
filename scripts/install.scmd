@@ -1,5 +1,5 @@
-// Do not shutdown on a failed command
-@ShutdownOnFailedCommand 0
+// Do shutdown on a failed command
+@ShutdownOnFailedCommand 1
 
 //No password as this is unattended
 @NoPromptForPassword 1
