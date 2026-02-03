@@ -43,19 +43,19 @@ install() {
   LogAction "Starting server install"
   
   if [ -n "${BETA}" ]; then
-    LogInfo "Installing Steam beta branch: ${BETA}"
+    LogInfo "Installing version: ${BETA}"
+  else
+    LogInfo "Installing stable branch"
   fi
   
-  # Substitute BETA in install.scmd
-  envsubst < /home/steam/server/install.scmd > /tmp/install.scmd.tmp <<EOF
-BETA=${BETA}
-EOF
+  export BETA="${BETA}"
+  envsubst < /home/steam/server/install.scmd > /tmp/install.scmd
   
-  /home/steam/steamcmd/steamcmd.sh +runscript /tmp/install.scmd.tmp
-  if [ $? -ne 0 ]; then
+  if ! /home/steam/steamcmd/steamcmd.sh +runscript /tmp/install.scmd; then
     LogError "SteamCMD failed to install/update the server"
     exit 1
   fi
+  
   LogSuccess "Server installation completed successfully"
 }
 
