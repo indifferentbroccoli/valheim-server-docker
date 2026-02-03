@@ -101,6 +101,7 @@ docker run -d \
 | PASSIVE_MOBS       | Enables passive mobs.                                                                                                                                                                                                                       | false         |
 | NO_BUILD_COST      | Disables building cost.                                                                                                                                                                                                                     | false         |
 | BEPINEX_ENABLED    | Enables BepInEx modding.                                                                                                                                                                                                                    | false         |
+| BETA               | Specifies a Steam beta branch to install (e.g., default_old). Set to public for stable branch.                                                                                                                          | public        |
 
 ## Developer information
 

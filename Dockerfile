@@ -40,7 +40,8 @@ ENV HOME=/home/steam \
     PLAYER_EVENTS=false \
     PASSIVE_MOBS=false \
     NO_BUILD_COST=false \
-    BEPINEX_ENABLED=false
+    BEPINEX_ENABLED=false \
+    BETA=public
 
 COPY ./scripts /home/steam/server/
 
