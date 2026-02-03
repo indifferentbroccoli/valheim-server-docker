@@ -42,6 +42,11 @@ Log() {
 install() {
   LogAction "Starting server install"
   /home/steam/steamcmd/steamcmd.sh +runscript /home/steam/server/install.scmd
+  if [ $? -ne 0 ]; then
+    LogError "SteamCMD failed to install/update the server"
+    exit 1
+  fi
+  LogSuccess "Server installation completed successfully"
 }
 
 cpu_check(){
