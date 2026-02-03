@@ -2,21 +2,21 @@
 FROM cm2network/steamcmd:root
 
 RUN apt-get update && apt-get install -y --no-install-recommends \
-    libatomic1=12.2.0-14 \
-    libpulse-dev=16.1+dfsg1-2+b1 \
-    unzip=6.0-28 \
-    wget=1.21.3-1+b2 \
-    libpulse0=16.1+dfsg1-2+b1 \
-    libc6=2.36-9+deb12u8 \
-    gettext-base=0.21-12 \
-    procps=2:4.0.2-3 \
+    libatomic1 \
+    libpulse-dev \
+    unzip \
+    wget \
+    libpulse0 \
+    libc6 \
+    gettext-base \
+    procps \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
 LABEL maintainer="support@indifferentbroccoli.com" \
-      name="indifferentbroccoli/projectzomboid-server-docker" \
-      github="https://github.com/indifferentbroccoli/projectzomboid-server-docker" \
-      dockerhub="https://hub.docker.com/r/indifferentbroccoli/projectzomboid-server-docker"
+      name="indifferentbroccoli/valheim-server-docker" \
+      github="https://github.com/indifferentbroccoli/valheim-server-docker" \
+      dockerhub="https://hub.docker.com/r/indifferentbroccoli/valheim-server-docker"
 
 ENV HOME=/home/steam \
     PORT=2456 \
