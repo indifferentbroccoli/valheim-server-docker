@@ -63,7 +63,20 @@ LogAction "Starting server"
 MODIFIERS=("${MODIFIERS[@]//\"}")
 
 if [ "${BEPINEX_ENABLED}" = true ]; then
-    LogInfo "BepInEx is enabled, starting server with BepInEx"
+    LogInfo "BepInEx is enabled..."
+
+    # Check if we need to download a specific version
+    # Default to 5.4.2333 if BEPINEXPACK_VERSION isn't set
+    VERSION=${BEPINEXPACK_VERSION}
+
+    # Only download if the folder doesn't exist or version is different
+    if [ ! -d "/home/steam/server/BepInEx" ]; then
+        LogInfo "Downloading BepInExPack_Valheim version ${VERSION}..."
+        wget -q https://gcdn.thunderstore.io/live/repository/packages/denikson-BepInExPack_Valheim-"${VERSION}".zip -O /tmp/BepInExPack.zip
+        unzip -q /tmp/BepInExPack.zip -d /home/steam/server/BepInEx
+        rm /tmp/BepInExPack.zip
+    fi
+
     cp -rf /home/steam/server/BepInEx/BepInExPack_Valheim/* /valheim
     export DOORSTOP_ENABLE=TRUE
     export DOORSTOP_INVOKE_DLL_PATH="./BepInEx/core/BepInEx.Preloader.dll"
