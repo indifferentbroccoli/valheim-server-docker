@@ -66,7 +66,6 @@ if [ "${BEPINEX_ENABLED}" = true ]; then
     LogInfo "BepInEx is enabled..."
 
     # Check if we need to download a specific version
-    # Default to 5.4.2333 if BEPINEXPACK_VERSION isn't set
     VERSION=${BEPINEXPACK_VERSION}
 
     # Only download if the folder doesn't exist or version is different
