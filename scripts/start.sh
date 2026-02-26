@@ -65,31 +65,20 @@ MODIFIERS=("${MODIFIERS[@]//\"}")
 if [ "${BEPINEX_ENABLED}" = true ]; then
     LogInfo "BepInEx is enabled..."
 
-    # Check if we need to download a specific version
-    VERSION=${BEPINEXPACK_VERSION}
+    VERSION=${BEPINEXPACK_VERSION:-5.4.2333}
 
-    # Only download if the folder doesn't exist or version is different
-    if [ ! -d "/home/steam/server/bepinex_cache" ]; then
-        LogInfo "Downloading BepInExPack_Valheim version ${VERSION}..."
-        if ! wget -q "https://gcdn.thunderstore.io/live/repository/packages/denikson-BepInExPack_Valheim-${VERSION}.zip" -O /tmp/BepInExPack.zip; then
-            LogError "Failed to download BepInExPack_Valheim version ${VERSION}. Check that BEPINEXPACK_VERSION is a valid release."
-            exit 1
-        fi
-        if ! unzip -q /tmp/BepInExPack.zip -d /home/steam/server/bepinex_cache; then
-            LogError "Failed to extract BepInExPack_Valheim."
-            rm -f /tmp/BepInExPack.zip
-            rm -rf /home/steam/server/bepinex_cache
-            exit 1
-        fi
-        rm /tmp/BepInExPack.zip
-    fi
-
-    if [ ! -f "/home/steam/server/bepinex_cache/BepInEx/core/BepInEx.dll" ]; then
-        LogError "BepInEx core not found after extraction. Installation may be incomplete."
+    LogInfo "Downloading BepInExPack_Valheim version ${VERSION}..."
+    if ! wget -q "https://gcdn.thunderstore.io/live/repository/packages/denikson-BepInExPack_Valheim-${VERSION}.zip" -O /tmp/BepInExPack.zip; then
+        LogError "Failed to download BepInExPack_Valheim version ${VERSION}. Check that BEPINEXPACK_VERSION is a valid release."
         exit 1
     fi
+    if ! unzip -q /tmp/BepInExPack.zip -d /valheim; then
+        LogError "Failed to extract BepInExPack_Valheim."
+        rm -f /tmp/BepInExPack.zip
+        exit 1
+    fi
+    rm /tmp/BepInExPack.zip
 
-    cp -rf /home/steam/server/bepinex_cache/* /valheim
     export DOORSTOP_ENABLE=TRUE
     export DOORSTOP_INVOKE_DLL_PATH="./BepInEx/core/BepInEx.Preloader.dll"
     export DOORSTOP_CORLIB_OVERRIDE_PATH="./unstripped_corlib"
