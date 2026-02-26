@@ -84,12 +84,11 @@ if [ "${BEPINEX_ENABLED}" = true ]; then
         rm -rf /tmp/BepInExPack
     fi
 
-    export DOORSTOP_ENABLE=TRUE
-    export DOORSTOP_INVOKE_DLL_PATH="/valheim/BepInEx/core/BepInEx.Preloader.dll"
-    export DOORSTOP_CORLIB_OVERRIDE_PATH="/valheim/unstripped_corlib"
-    export LD_LIBRARY_PATH="/valheim/doorstop_libs:$LD_LIBRARY_PATH"
-    export LD_PRELOAD="/valheim/doorstop_libs/libdoorstop_x64.so:$LD_PRELOAD"
-    export LD_LIBRARY_PATH="/valheim/linux64:$LD_LIBRARY_PATH"
+    export DOORSTOP_ENABLED=1
+    export DOORSTOP_TARGET_ASSEMBLY="./BepInEx/core/BepInEx.Preloader.dll"
+    export LD_LIBRARY_PATH="./doorstop_libs:$LD_LIBRARY_PATH"
+    export LD_PRELOAD="libdoorstop_x64.so:$LD_PRELOAD"
+    export LD_LIBRARY_PATH="./linux64:$LD_LIBRARY_PATH"
 fi
 
 # shellcheck disable=SC2068
