@@ -67,27 +67,29 @@ if [ "${BEPINEX_ENABLED}" = true ]; then
 
     VERSION=${BEPINEXPACK_VERSION:-5.4.2333}
 
-    LogInfo "Downloading BepInExPack_Valheim version ${VERSION}..."
-    if ! wget -q "https://gcdn.thunderstore.io/live/repository/packages/denikson-BepInExPack_Valheim-${VERSION}.zip" -O /tmp/BepInExPack.zip; then
-        LogError "Failed to download BepInExPack_Valheim version ${VERSION}. Check that BEPINEXPACK_VERSION is a valid release."
-        exit 1
-    fi
-    if ! unzip -q /tmp/BepInExPack.zip -d /tmp/BepInExPack; then
-        LogError "Failed to extract BepInExPack_Valheim."
-        rm -f /tmp/BepInExPack.zip
+    if [ ! -d "/valheim/BepInEx" ]; then
+        LogInfo "Downloading BepInExPack_Valheim version ${VERSION}..."
+        if ! wget -q "https://gcdn.thunderstore.io/live/repository/packages/denikson-BepInExPack_Valheim-${VERSION}.zip" -O /tmp/BepInExPack.zip; then
+            LogError "Failed to download BepInExPack_Valheim version ${VERSION}. Check that BEPINEXPACK_VERSION is a valid release."
+            exit 1
+        fi
+        if ! unzip -q /tmp/BepInExPack.zip -d /tmp/BepInExPack; then
+            LogError "Failed to extract BepInExPack_Valheim."
+            rm -f /tmp/BepInExPack.zip
+            rm -rf /tmp/BepInExPack
+            exit 1
+        fi
+        rm /tmp/BepInExPack.zip
+        cp -rf /tmp/BepInExPack/BepInExPack_Valheim/* /valheim
         rm -rf /tmp/BepInExPack
-        exit 1
     fi
-    rm /tmp/BepInExPack.zip
-    cp -rf /tmp/BepInExPack/BepInExPack_Valheim/* /valheim
-    rm -rf /tmp/BepInExPack
 
     export DOORSTOP_ENABLE=TRUE
-    export DOORSTOP_INVOKE_DLL_PATH="./BepInEx/core/BepInEx.Preloader.dll"
-    export DOORSTOP_CORLIB_OVERRIDE_PATH="./unstripped_corlib"
-    export LD_LIBRARY_PATH="./doorstop_libs:$LD_LIBRARY_PATH"
-    export LD_PRELOAD="./doorstop_libs/libdoorstop_x64.so:$LD_PRELOAD"
-    export LD_LIBRARY_PATH="./linux64:$LD_LIBRARY_PATH"
+    export DOORSTOP_INVOKE_DLL_PATH="/valheim/BepInEx/core/BepInEx.Preloader.dll"
+    export DOORSTOP_CORLIB_OVERRIDE_PATH="/valheim/unstripped_corlib"
+    export LD_LIBRARY_PATH="/valheim/doorstop_libs:$LD_LIBRARY_PATH"
+    export LD_PRELOAD="/valheim/doorstop_libs/libdoorstop_x64.so:$LD_PRELOAD"
+    export LD_LIBRARY_PATH="/valheim/linux64:$LD_LIBRARY_PATH"
 fi
 
 # shellcheck disable=SC2068
