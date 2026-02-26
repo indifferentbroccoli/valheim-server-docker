@@ -82,13 +82,30 @@ if [ "${BEPINEX_ENABLED}" = true ]; then
         rm /tmp/BepInExPack.zip
         cp -rf /tmp/BepInExPack/BepInExPack_Valheim/* /valheim
         rm -rf /tmp/BepInExPack
+        echo "${VERSION}" > /valheim/.bepinex_version
     fi
 
-    export DOORSTOP_ENABLED=1
-    export DOORSTOP_TARGET_ASSEMBLY="./BepInEx/core/BepInEx.Preloader.dll"
+    # Read installed version
+    if [ -f "/valheim/.bepinex_version" ]; then
+        INSTALLED_VERSION=$(cat /valheim/.bepinex_version)
+    else
+        # No marker = legacy install
+        INSTALLED_VERSION="5.4.22.0"
+    fi
+
     export LD_LIBRARY_PATH="./doorstop_libs:$LD_LIBRARY_PATH"
     export LD_PRELOAD="libdoorstop_x64.so:$LD_PRELOAD"
     export LD_LIBRARY_PATH="./linux64:$LD_LIBRARY_PATH"
+
+    # BepInEx 5.4.22xx uses old doorstop env vars; 5.4.23xx+ uses new ones
+    if [[ "${INSTALLED_VERSION}" == 5.4.22* ]]; then
+        export DOORSTOP_ENABLE=TRUE
+        export DOORSTOP_INVOKE_DLL_PATH=./BepInEx/core/BepInEx.Preloader.dll
+        export DOORSTOP_CORLIB_OVERRIDE_PATH=./unstripped_corlib
+    else
+        export DOORSTOP_ENABLED=1
+        export DOORSTOP_TARGET_ASSEMBLY="./BepInEx/core/BepInEx.Preloader.dll"
+    fi
 fi
 
 # shellcheck disable=SC2068
