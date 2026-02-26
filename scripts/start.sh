@@ -72,12 +72,15 @@ if [ "${BEPINEX_ENABLED}" = true ]; then
         LogError "Failed to download BepInExPack_Valheim version ${VERSION}. Check that BEPINEXPACK_VERSION is a valid release."
         exit 1
     fi
-    if ! unzip -q /tmp/BepInExPack.zip -d /valheim; then
+    if ! unzip -q /tmp/BepInExPack.zip -d /tmp/BepInExPack; then
         LogError "Failed to extract BepInExPack_Valheim."
         rm -f /tmp/BepInExPack.zip
+        rm -rf /tmp/BepInExPack
         exit 1
     fi
     rm /tmp/BepInExPack.zip
+    cp -rf /tmp/BepInExPack/BepInExPack_Valheim/* /valheim
+    rm -rf /tmp/BepInExPack
 
     export DOORSTOP_ENABLE=TRUE
     export DOORSTOP_INVOKE_DLL_PATH="./BepInEx/core/BepInEx.Preloader.dll"
