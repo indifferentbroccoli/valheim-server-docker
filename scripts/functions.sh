@@ -48,7 +48,9 @@ install() {
     LogInfo "Installing stable branch"
   fi
   
-  export BETA="${BETA}"
+  BETA_PASSWORD_ARG=""
+  [ "${BETA}" = "public-test" ] && BETA_PASSWORD_ARG="-betapassword yesimadebackups"
+  export BETA BETA_PASSWORD_ARG
   envsubst < /home/steam/server/install.scmd > /tmp/install.scmd
   
   if ! /home/steam/steamcmd/steamcmd.sh +runscript /tmp/install.scmd; then

@@ -10,6 +10,6 @@ force_install_dir /valheim
 login anonymous
 
 // Install/Update the Valheim Dedicated Server
-app_update 896660 -beta ${BETA} validate
+app_update 896660 -beta ${BETA} ${BETA_PASSWORD_ARG} validate
 
 quit
