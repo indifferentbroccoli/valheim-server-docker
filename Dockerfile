@@ -25,7 +25,6 @@ ENV HOME=/home/steam \
     CROSSPLAY_ENABLED=true \
     WORLD_NAME=dedicated \
     PUBLIC=true \
-    MAX_PLAYERS=10 \
     SAVE_DIR=/valheim-saves \
     SAVE_INTERVAL=1800 \
     KEEP_BACKUPS=4 \

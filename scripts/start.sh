@@ -116,7 +116,6 @@ fi
     -password "$SERVER_PASSWORD" \
     -savedir "${SAVE_DIR}" \
     -public "${PUBLIC}"  \
-    -maxplayers "${MAX_PLAYERS}" \
     -saveinterval "${SAVE_INTERVAL}" \
     -backups "${KEEP_BACKUPS}" \
     -backupshort "${BACKUPS_SHORT}" \
