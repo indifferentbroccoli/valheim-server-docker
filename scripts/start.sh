@@ -62,6 +62,11 @@ LogAction "Starting server"
 # remove double quotes from the modifiers array
 MODIFIERS=("${MODIFIERS[@]//\"}")
 
+if [ "${MAX_PLAYERS}" != "10" ]; then
+    LogInfo "MAX_PLAYERS is set to ${MAX_PLAYERS}, enabling BepInEx for the MaxPlayerCount mod..."
+    BEPINEX_ENABLED=true
+fi
+
 if [ "${BEPINEX_ENABLED}" = true ]; then
     LogInfo "BepInEx is enabled..."
 
@@ -91,6 +96,20 @@ if [ "${BEPINEX_ENABLED}" = true ]; then
     else
         # No marker = legacy install
         INSTALLED_VERSION="5.4.22.0"
+    fi
+
+    if [ "${MAX_PLAYERS}" != "10" ]; then
+        LogInfo "Installing MaxPlayerCount mod for ${MAX_PLAYERS} players..."
+        mkdir -p /valheim/BepInEx/plugins /valheim/BepInEx/config
+        cp -f "${MODS_DIR}/MaxPlayerCount/MaxPlayerCount.dll" /valheim/BepInEx/plugins/
+        cat > /valheim/BepInEx/config/Azumatt.MaxPlayerCount.cfg <<EOF
+[1 - General]
+
+## Override the player count that valheim checks for. Default is the vanilla max of 10.
+# Setting type: Int32
+# Default value: 20
+MaxPlayerCount = ${MAX_PLAYERS}
+EOF
     fi
 
     export LD_LIBRARY_PATH="./doorstop_libs:$LD_LIBRARY_PATH"

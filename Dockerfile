@@ -25,6 +25,7 @@ ENV HOME=/home/steam \
     CROSSPLAY_ENABLED=true \
     WORLD_NAME=dedicated \
     PUBLIC=true \
+    MAX_PLAYERS=10 \
     SAVE_DIR=/valheim-saves \
     SAVE_INTERVAL=1800 \
     KEEP_BACKUPS=4 \
@@ -42,7 +43,15 @@ ENV HOME=/home/steam \
     NO_BUILD_COST=false \
     BEPINEX_ENABLED=false \
     BEPINEXPACK_VERSION=5.4.2333 \
+    MODS_DIR=/opt/valheim-mods \
     BETA=public
+
+ARG MAXPLAYERCOUNT_VERSION=1.2.4
+RUN mkdir -p /opt/valheim-mods/MaxPlayerCount && \
+    wget -q "https://gcdn.thunderstore.io/live/repository/packages/Azumatt-MaxPlayerCount-${MAXPLAYERCOUNT_VERSION}.zip" -O /tmp/MaxPlayerCount.zip && \
+    unzip -q -j /tmp/MaxPlayerCount.zip "MaxPlayerCount.dll" -d /opt/valheim-mods/MaxPlayerCount && \
+    echo "${MAXPLAYERCOUNT_VERSION}" > /opt/valheim-mods/MaxPlayerCount/.version && \
+    rm /tmp/MaxPlayerCount.zip
 
 COPY ./scripts /home/steam/server/
 
