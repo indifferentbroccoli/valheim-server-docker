@@ -110,6 +110,9 @@ if [ "${BEPINEX_ENABLED}" = true ]; then
 # Default value: 20
 MaxPlayerCount = ${MAX_PLAYERS}
 EOF
+    else
+        rm -f /valheim/BepInEx/plugins/MaxPlayerCount.dll \
+              /valheim/BepInEx/config/Azumatt.MaxPlayerCount.cfg
     fi
 
     export LD_LIBRARY_PATH="./doorstop_libs:$LD_LIBRARY_PATH"
