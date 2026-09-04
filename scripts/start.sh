@@ -99,7 +99,12 @@ if [ "${BEPINEX_ENABLED}" = true ]; then
     fi
 
     if [ "${MAX_PLAYERS}" != "10" ]; then
-        LogInfo "Installing MaxPlayerCount mod for ${MAX_PLAYERS} players..."
+        PLAYER_COUNT="${MAX_PLAYERS}"
+        if [ "${CROSSPLAY_ENABLED}" = "true" ]; then
+            PLAYER_COUNT=$((MAX_PLAYERS + 1))
+        fi
+
+        LogInfo "Installing MaxPlayerCount mod for ${MAX_PLAYERS} players (limit ${PLAYER_COUNT})..."
         mkdir -p /valheim/BepInEx/plugins /valheim/BepInEx/config
         cp -f "${MODS_DIR}/MaxPlayerCount/MaxPlayerCount.dll" /valheim/BepInEx/plugins/
         cat > /valheim/BepInEx/config/Azumatt.MaxPlayerCount.cfg <<EOF
@@ -108,7 +113,7 @@ if [ "${BEPINEX_ENABLED}" = true ]; then
 ## Override the player count that valheim checks for. Default is the vanilla max of 10.
 # Setting type: Int32
 # Default value: 20
-MaxPlayerCount = ${MAX_PLAYERS}
+MaxPlayerCount = ${PLAYER_COUNT}
 EOF
     else
         rm -f /valheim/BepInEx/plugins/MaxPlayerCount.dll \
