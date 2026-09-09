@@ -56,6 +56,10 @@ fi
 if [ "${NO_BUILD_COST}" = "true" ]; then
     MODIFIERS+=("-setkey nobuildcost")
 fi
+# If FIRE_HAZARDS is set to true, add -setkey fire to the server start command
+if [ "${FIRE_HAZARDS}" = "true" ]; then
+    MODIFIERS+=("-setkey fire")
+fi
 
 LogAction "Starting server"
 

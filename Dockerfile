@@ -41,6 +41,7 @@ ENV HOME=/home/steam \
     PLAYER_EVENTS=false \
     PASSIVE_MOBS=false \
     NO_BUILD_COST=false \
+    FIRE_HAZARDS=false \
     BEPINEX_ENABLED=false \
     MODS= \
     BEPINEXPACK_VERSION=5.4.2333 \
