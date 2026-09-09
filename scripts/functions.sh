@@ -16,6 +16,8 @@ export CyanBoldText='\033[1;36m'        # Cyan
 # End Log Definitions
 #================
 
+export THUNDERSTORE_DIR="/valheim/BepInEx/plugins/thunderstore"
+
 LogInfo() {
   Log "$1" "$WhiteText"
 }
@@ -89,14 +91,16 @@ check_password() {
 install_mods() {
   local mod
 
-  mkdir -p /valheim/BepInEx/plugins
+  rm -rf "${THUNDERSTORE_DIR}"
+  mkdir -p "${THUNDERSTORE_DIR}"
 
   for mod in ${MODS//,/ }; do
     LogInfo "Installing mod ${mod}..."
 
     if ! wget -q "https://gcdn.thunderstore.io/live/repository/packages/${mod}.zip" -O /tmp/mod.zip ||
-      ! unzip -qoj /tmp/mod.zip -d /valheim/BepInEx/plugins -x 'manifest.json' 'icon.png' '*.md'; then
+      ! unzip -qoj /tmp/mod.zip -d "${THUNDERSTORE_DIR}" -x 'manifest.json' 'icon.png' '*.md'; then
       LogError "Failed to install ${mod}, check the Thunderstore dependency string."
+      rm -f /tmp/mod.zip
       exit 1
     fi
 
