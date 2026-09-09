@@ -84,4 +84,22 @@ check_password() {
     LogWarn "Continuing in 5 seconds..."
     sleep 5
   fi
-} 
+}
+
+install_mods() {
+  local mod
+
+  mkdir -p /valheim/BepInEx/plugins
+
+  for mod in ${MODS//,/ }; do
+    LogInfo "Installing mod ${mod}..."
+
+    if ! wget -q "https://gcdn.thunderstore.io/live/repository/packages/${mod}.zip" -O /tmp/mod.zip ||
+      ! unzip -qoj /tmp/mod.zip -d /valheim/BepInEx/plugins -x 'manifest.json' 'icon.png' '*.md'; then
+      LogError "Failed to install ${mod}, check the Thunderstore dependency string."
+      exit 1
+    fi
+
+    rm -f /tmp/mod.zip
+  done
+}

@@ -103,6 +103,7 @@ docker run -d \
 | NO_BUILD_COST      | Disables building cost.                                                                                                                                                                                                                     | false         |
 | BEPINEX_ENABLED    | Enables BepInEx modding.                                                                                                                                                                                                                    | false         |
 | BEPINEXPACK_VERSION | The [BepInExPack_Valheim](https://thunderstore.io/c/valheim/p/denikson/BepInExPack_Valheim/) version installed when BepInEx is needed.                                                                                                                                        | 5.4.2333      |
+| MODS               | Comma separated list of [Thunderstore](https://thunderstore.io/c/valheim/) dependency strings, as shown on each mod's page, for example `Azumatt-AAA_Crafting-2.1.6`. Setting it automatically enables BepInEx. |               |
 | BETA               | Specifies a Steam beta branch to install (e.g., default_old). Set to public for stable branch.                                                                                                                          | public        |
 
 ## Developer information

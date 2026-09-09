@@ -67,6 +67,11 @@ if [ "${MAX_PLAYERS}" != "10" ]; then
     BEPINEX_ENABLED=true
 fi
 
+if [ -n "${MODS}" ]; then
+    LogInfo "MODS is set, enabling BepInEx for the requested mods..."
+    BEPINEX_ENABLED=true
+fi
+
 if [ "${BEPINEX_ENABLED}" = true ]; then
     LogInfo "BepInEx is enabled..."
 
@@ -106,7 +111,9 @@ if [ "${BEPINEX_ENABLED}" = true ]; then
 
         LogInfo "Installing MaxPlayerCount mod for ${MAX_PLAYERS} players (limit ${PLAYER_COUNT})..."
         mkdir -p /valheim/BepInEx/plugins /valheim/BepInEx/config
-        cp -f "${MODS_DIR}/MaxPlayerCount/MaxPlayerCount.dll" /valheim/BepInEx/plugins/
+        if [[ ",${MODS}," != *"MaxPlayerCount"* ]]; then
+            cp -f "${MODS_DIR}/MaxPlayerCount/MaxPlayerCount.dll" /valheim/BepInEx/plugins/
+        fi
         cat > /valheim/BepInEx/config/Azumatt.MaxPlayerCount.cfg <<EOF
 [1 - General]
 
@@ -119,6 +126,8 @@ EOF
         rm -f /valheim/BepInEx/plugins/MaxPlayerCount.dll \
               /valheim/BepInEx/config/Azumatt.MaxPlayerCount.cfg
     fi
+
+    install_mods
 
     export LD_LIBRARY_PATH="./doorstop_libs:$LD_LIBRARY_PATH"
     export LD_PRELOAD="libdoorstop_x64.so:$LD_PRELOAD"

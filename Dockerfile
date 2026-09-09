@@ -42,6 +42,7 @@ ENV HOME=/home/steam \
     PASSIVE_MOBS=false \
     NO_BUILD_COST=false \
     BEPINEX_ENABLED=false \
+    MODS= \
     BEPINEXPACK_VERSION=5.4.2333 \
     MODS_DIR=/opt/valheim-mods \
     BETA=public
