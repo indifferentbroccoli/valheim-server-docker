@@ -46,7 +46,8 @@ ENV HOME=/home/steam \
     MODS= \
     BEPINEXPACK_VERSION=5.4.2333 \
     MODS_DIR=/opt/valheim-mods \
-    BETA=public
+    BETA=public \
+    UPDATE_ON_START=false
 
 ARG MAXPLAYERCOUNT_VERSION=1.2.4
 RUN mkdir -p /opt/valheim-mods/MaxPlayerCount && \

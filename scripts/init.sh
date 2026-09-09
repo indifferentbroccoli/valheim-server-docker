@@ -24,7 +24,11 @@ fi
 
 check_password
 
-install
+if [ "${UPDATE_ON_START}" = "true" ] || [ ! -f "/valheim/valheim_server.x86_64" ]; then
+    install
+else
+    LogInfo "UPDATE_ON_START is not set, skipping the SteamCMD update"
+fi
 
 # shellcheck disable=SC2317
 term_handler() {
