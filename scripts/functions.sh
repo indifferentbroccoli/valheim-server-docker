@@ -97,9 +97,15 @@ install_mods() {
   for mod in ${MODS//,/ }; do
     LogInfo "Installing mod ${mod}..."
 
-    if ! wget -q "https://gcdn.thunderstore.io/live/repository/packages/${mod}.zip" -O /tmp/mod.zip ||
-      ! unzip -qoj /tmp/mod.zip -d "${THUNDERSTORE_DIR}" -x 'manifest.json' 'icon.png' '*.md'; then
-      LogError "Failed to install ${mod}, check the Thunderstore dependency string."
+    if ! wget -q "https://gcdn.thunderstore.io/live/repository/packages/${mod}.zip" -O /tmp/mod.zip; then
+      LogError "Failed to download ${mod}, check the Thunderstore dependency string."
+      rm -f /tmp/mod.zip
+      exit 1
+    fi
+
+    unzip -qoj /tmp/mod.zip -d "${THUNDERSTORE_DIR}" -x 'manifest.json' 'icon.png' '*.md' 2>/dev/null
+    if [ $? -gt 1 ]; then
+      LogError "Failed to extract ${mod}."
       rm -f /tmp/mod.zip
       exit 1
     fi
