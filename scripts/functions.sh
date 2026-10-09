@@ -88,6 +88,14 @@ check_password() {
   fi
 }
 
+download_hexium_mod() {
+  local url author name version
+  IFS=- read -r author name version <<< "$1"
+  url=$(wget -qO- "https://hexium.gg/api/experimental/package/${author}/${name}/${version}/" \
+    | grep -o '"download_url":"[^"]*"' | cut -d'"' -f4)
+  [ -n "${url}" ] && wget -q "${url}" -O /tmp/mod.zip
+}
+
 install_mods() {
   local mod
 
@@ -97,8 +105,9 @@ install_mods() {
   for mod in ${MODS//,/ }; do
     LogInfo "Installing mod ${mod}..."
 
-    if ! wget -q "https://gcdn.thunderstore.io/live/repository/packages/${mod}.zip" -O /tmp/mod.zip; then
-      LogError "Failed to download ${mod}, check the Thunderstore dependency string."
+    if ! wget -q "https://gcdn.thunderstore.io/live/repository/packages/${mod}.zip" -O /tmp/mod.zip \
+      && ! download_hexium_mod "${mod}"; then
+      LogError "Failed to download ${mod}, check the Thunderstore/Hexium dependency string."
       rm -f /tmp/mod.zip
       exit 1
     fi
