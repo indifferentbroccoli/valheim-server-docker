@@ -17,6 +17,7 @@ export CyanBoldText='\033[1;36m'        # Cyan
 #================
 
 export THUNDERSTORE_DIR="/valheim/BepInEx/plugins/thunderstore"
+export HEXIUM_DIR="/valheim/BepInEx/plugins/hexium"
 
 LogInfo() {
   Log "$1" "$WhiteText"
@@ -97,22 +98,25 @@ download_hexium_mod() {
 }
 
 install_mods() {
-  local mod
+  local mod dir
 
-  rm -rf "${THUNDERSTORE_DIR}"
-  mkdir -p "${THUNDERSTORE_DIR}"
+  rm -rf "${THUNDERSTORE_DIR}" "${HEXIUM_DIR}"
+  mkdir -p "${THUNDERSTORE_DIR}" "${HEXIUM_DIR}"
 
   for mod in ${MODS//,/ }; do
     LogInfo "Installing mod ${mod}..."
 
-    if ! wget -q "https://gcdn.thunderstore.io/live/repository/packages/${mod}.zip" -O /tmp/mod.zip \
-      && ! download_hexium_mod "${mod}"; then
+    if wget -q "https://gcdn.thunderstore.io/live/repository/packages/${mod}.zip" -O /tmp/mod.zip; then
+      dir="${THUNDERSTORE_DIR}"
+    elif download_hexium_mod "${mod}"; then
+      dir="${HEXIUM_DIR}"
+    else
       LogError "Failed to download ${mod}, check the Thunderstore/Hexium dependency string."
       rm -f /tmp/mod.zip
       exit 1
     fi
 
-    unzip -qoj /tmp/mod.zip -d "${THUNDERSTORE_DIR}" -x 'manifest.json' 'icon.png' '*.md' 2>/dev/null
+    unzip -qoj /tmp/mod.zip -d "${dir}" -x 'manifest.json' 'icon.png' '*.md' 2>/dev/null
     if [ $? -gt 1 ]; then
       LogError "Failed to extract ${mod}."
       rm -f /tmp/mod.zip
