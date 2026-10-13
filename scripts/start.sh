@@ -18,6 +18,12 @@ else
     PUBLIC=0
 fi
 
+if [ "${SERVER_PRESET}" = "Custom" ]; then
+    PRESET=()
+else
+    PRESET=(-preset "${SERVER_PRESET}")
+fi
+
 # If there are any modifiers set, add them to the server start command
 MODIFIERS=()
 # Modifier Combat
@@ -161,7 +167,7 @@ fi
     -backupshort "${BACKUPS_SHORT}" \
     -backuplong "${BACKUPS_LONG}" \
     "${CROSSPLAY}" \
-    -preset "${SERVER_PRESET}" \
+    "${PRESET[@]}" \
     ${MODIFIERS[@]} \
     -nographics \
     -batchmode
