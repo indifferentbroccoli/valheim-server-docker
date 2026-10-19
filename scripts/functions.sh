@@ -51,14 +51,16 @@ install() {
     LogInfo "Installing stable branch"
   fi
   
-  export BETA="${BETA}"
-  envsubst < /home/steam/server/install.scmd > /tmp/install.scmd
-  
-  if ! /home/steam/steamcmd/steamcmd.sh +runscript /tmp/install.scmd; then
-    LogError "SteamCMD failed to install/update the server"
+  if ! /depotdownloader/DepotDownloader \
+    -app 896660 \
+    -branch "${BETA:-public}" \
+    -dir /valheim \
+    -validate; then
+    LogError "DepotDownloader failed to install/update the server"
     exit 1
   fi
   
+  chmod +x /valheim/valheim_server.x86_64
   LogSuccess "Server installation completed successfully"
 }
 

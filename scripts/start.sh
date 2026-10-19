@@ -76,6 +76,9 @@ if [ -n "${MODS}" ]; then
     BEPINEX_ENABLED=true
 fi
 
+export LD_LIBRARY_PATH="./linux64:$LD_LIBRARY_PATH"
+export SteamAppId=892970
+
 if [ "${BEPINEX_ENABLED}" = true ]; then
     LogInfo "BepInEx is enabled..."
 
@@ -135,7 +138,6 @@ EOF
 
     export LD_LIBRARY_PATH="./doorstop_libs:$LD_LIBRARY_PATH"
     export LD_PRELOAD="libdoorstop_x64.so:$LD_PRELOAD"
-    export LD_LIBRARY_PATH="./linux64:$LD_LIBRARY_PATH"
 
     # BepInEx 5.4.22xx uses old doorstop env vars; 5.4.23xx+ uses new ones
     if [[ "${INSTALLED_VERSION}" == 5.4.22* ]]; then

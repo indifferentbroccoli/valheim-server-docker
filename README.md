@@ -106,7 +106,7 @@ docker run -d \
 | BEPINEXPACK_VERSION | The [BepInExPack_Valheim](https://thunderstore.io/c/valheim/p/denikson/BepInExPack_Valheim/) version installed when BepInEx is needed.                                                                                                                                        | 5.4.2333      |
 | MODS               | Comma separated list of [Thunderstore](https://thunderstore.io/c/valheim/) or [Hexium](https://valheim.hexium.gg/) mods as `Author-ModName-Version`, for example `Azumatt-AAA_Crafting-2.1.6` for [this mod](https://thunderstore.io/c/valheim/p/Azumatt/AAA_Crafting/). Setting it automatically enables BepInEx. |               |
 | BETA               | Specifies a Steam beta branch to install (e.g., default_old). Set to public for stable branch.                                                                                                                          | public        |
-| UPDATE_ON_START    | Runs the SteamCMD update when the container starts. The server is always installed on first start.                                                                                                               | false         |
+| UPDATE_ON_START    | Runs the server update when the container starts. The server is always installed on first start.                                                                                                               | false         |
 
 ## Developer information
 
@@ -130,10 +130,6 @@ Features basic checks that will confirm if the server can be started.
 
 Starts the server with the settings from the .env file.
 Will also call the compile-settings.sh script to generate the server settings.
-
-#### install.scmd
-
-Installs the server. This script will download the server files using SteamCMD and extract them to the server directory.
 
 #### funtions.sh
 

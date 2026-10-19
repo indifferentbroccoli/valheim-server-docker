@@ -1,17 +1,35 @@
 #BUILD THE SERVER IMAGE
-FROM cm2network/steamcmd:root
+FROM --platform=linux/amd64 debian:bookworm-slim
+
+ENV DEBIAN_FRONTEND=noninteractive
 
 RUN apt-get update && apt-get install -y --no-install-recommends \
+    ca-certificates \
+    libicu-dev \
     libatomic1 \
     libpulse-dev \
     unzip \
     wget \
     libpulse0 \
     libc6 \
-    gettext-base \
     procps \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
+
+RUN wget -q https://dot.net/v1/dotnet-install.sh -O /tmp/dotnet-install.sh && \
+    chmod +x /tmp/dotnet-install.sh && \
+    /tmp/dotnet-install.sh --channel 8.0 --runtime dotnet --install-dir /usr/share/dotnet && \
+    ln -s /usr/share/dotnet/dotnet /usr/bin/dotnet && \
+    rm /tmp/dotnet-install.sh
+
+ARG DEPOT_DOWNLOADER_VERSION=3.4.0
+RUN wget -q "https://github.com/SteamRE/DepotDownloader/releases/download/DepotDownloader_${DEPOT_DOWNLOADER_VERSION}/DepotDownloader-linux-x64.zip" -O /tmp/dd.zip && \
+    mkdir -p /depotdownloader && \
+    unzip -q /tmp/dd.zip -d /depotdownloader && \
+    chmod +x /depotdownloader/DepotDownloader && \
+    rm /tmp/dd.zip
+
+RUN useradd -m -s /bin/bash steam
 
 LABEL maintainer="support@indifferentbroccoli.com" \
       name="indifferentbroccoli/valheim-server-docker" \
