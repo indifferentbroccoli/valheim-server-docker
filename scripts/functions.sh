@@ -107,12 +107,17 @@ install_mods() {
 
   for mod in ${MODS//,/ }; do
     LogInfo "Installing mod ${mod}..."
+    dir=""
 
-    if wget -q "https://gcdn.thunderstore.io/live/repository/packages/${mod}.zip" -O /tmp/mod.zip; then
+    if [[ "${mod}" == hexium:* ]]; then
+      download_hexium_mod "${mod#hexium:}" && dir="${HEXIUM_DIR}"
+    elif wget -q "https://gcdn.thunderstore.io/live/repository/packages/${mod}.zip" -O /tmp/mod.zip; then
       dir="${THUNDERSTORE_DIR}"
     elif download_hexium_mod "${mod}"; then
       dir="${HEXIUM_DIR}"
-    else
+    fi
+
+    if [ -z "${dir}" ]; then
       LogError "Failed to download ${mod}, check the Thunderstore/Hexium dependency string."
       rm -f /tmp/mod.zip
       exit 1
