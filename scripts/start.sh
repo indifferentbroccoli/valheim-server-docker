@@ -18,8 +18,15 @@ else
     PUBLIC=0
 fi
 
+# A bit of a misnomer, as may contain a preset, modifier and keys
 # If there are any modifiers set, add them to the server start command
 MODIFIERS=()
+### PRESET:
+# Not a modifier, but a set of them. If set, it should be before any modifiers and keys
+if [ -n "${SERVER_PRESET}" ] ; then
+    MODIFIERS+=("-preset ${SERVER_PRESET}")
+fi
+### MODIFIERS:
 # Modifier Combat
 if [ -n "${MODIFIER_COMBAT}" ]; then
     MODIFIERS+=("-modifier combat ${MODIFIER_COMBAT}")
@@ -44,6 +51,7 @@ fi
 if [ "${NO_MAP}" = "true" ]; then
     MODIFIERS+=("-setkey nomap")
 fi
+### KEYS:
 # If PLAYER_EVENTS is set to true, add -setkey playerevents to the server start command
 if [ "${PLAYER_EVENTS}" = "true" ]; then
     MODIFIERS+=("-setkey playerevents")
@@ -163,7 +171,6 @@ fi
     -backupshort "${BACKUPS_SHORT}" \
     -backuplong "${BACKUPS_LONG}" \
     "${CROSSPLAY}" \
-    -preset "${SERVER_PRESET}" \
     ${MODIFIERS[@]} \
     -nographics \
     -batchmode
